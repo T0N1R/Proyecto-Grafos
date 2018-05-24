@@ -26,11 +26,24 @@ historial = []
 
 #en el for se puede poner sheet.nrows para imprimir todo
 def add_Excel():
+    lista_gen = []
     for x in range(sheet.nrows):
         name = sheet.cell_value(x,0)
         gen1 = sheet.cell_value(x,1)
         gen2 = sheet.cell_value(x,2)
         gen3 = sheet.cell_value(x,3)
+
+        lista_gen = []
+
+        lista_gen.append(gen1)
+        lista_gen.append(gen2)
+        lista_gen.append(gen3)
+
+        lista_gen.sort()
+
+        gen1 = lista_gen[0]
+        gen2 = lista_gen[1]
+        gen3 = lista_gen[2]
 
         generos = []
 
@@ -45,71 +58,101 @@ def add_Excel():
 
         try:
             unidad.relationships.create("contains", gen.get(genero=gen1)[0])
+            gen.get(genero=gen1)[0].relationships.create("contains", unidad)
         except Exception:
             genNode = db.nodes.create(genero=gen1)
             gen.add(genNode)
             unidad.relationships.create("contains", gen.get(genero=gen1)[0])
+            gen.get(genero=gen1)[0].relationships.create("contains", unidad)
 
         try:
             unidad.relationships.create("contains", gen.get(genero=gen2)[0])
+            gen.get(genero=gen2)[0].relationships.create("contains", unidad)
         except Exception:
             genNode = db.nodes.create(genero=gen2)
             gen.add(genNode)
             unidad.relationships.create("contains", gen.get(genero=gen2)[0])
+            gen.get(genero=gen2)[0].relationships.create("contains", unidad)
 
         try:
             unidad.relationships.create("contains", gen.get(genero=gen3)[0])
+            gen.get(genero=gen3)[0].relationships.create("contains", unidad)
         except Exception:
             genNode = db.nodes.create(genero=gen3)
             gen.add(genNode)
             unidad.relationships.create("contains", gen.get(genero=gen3)[0])
+            gen.get(genero=gen3)[0].relationships.create("contains", unidad)
 
 
 def add_database():
+    listaOrden = []
     name = raw_input("Ingresar nombre de la Película o Serie: ")
     gen1 = raw_input("Ingrese genero1: ")
     gen2 = raw_input("Ingrese genero2: ")
     gen3 = raw_input("Ingrese genero3: ")
+
+    listaOrden.append(gen1)
+    listaOrden.append(gen2)
+    listaOrden.append(gen3)
+
+    listaOrden.sort()
+
+    gen1 = listaOrden[0]
+    gen2 = listaOrden[1]
+    gen3 = listaOrden[2]
 
     unidad = db.nodes.create(nombre=name, genero1=gen1, genero2=gen2, genero3=gen3)
     dataB.add(unidad)
 
     try:
         unidad.relationships.create("contains", gen.get(genero=gen1)[0])
+        gen.get(genero=gen1)[0].relationships.create("contains", unidad)
     except Exception:
         genNode = db.nodes.create(genero=gen1)
         gen.add(genNode)
         unidad.relationships.create("contains", gen.get(genero=gen1)[0])
+        gen.get(genero=gen1)[0].relationships.create("contains", unidad)
 
     try:
         unidad.relationships.create("contains", gen.get(genero=gen2)[0])
+        gen.get(genero=gen2)[0].relationships.create("contains", unidad)
     except Exception:
         genNode = db.nodes.create(genero=gen2)
         gen.add(genNode)
         unidad.relationships.create("contains", gen.get(genero=gen2)[0])
+        gen.get(genero=gen2)[0].relationships.create("contains", unidad)
 
     try:
         unidad.relationships.create("contains", gen.get(genero=gen3)[0])
+        gen.get(genero=gen3)[0].relationships.create("contains", unidad)
     except Exception:
         genNode = db.nodes.create(genero=gen3)
         gen.add(genNode)
         unidad.relationships.create("contains", gen.get(genero=gen3)[0])
+        gen.get(genero=gen3)[0].relationships.create("contains", unidad)
 
     database[name] = [gen1,gen2,gen3]
 
 def watch():
     name = raw_input("Ingrese el nombre de la Película o Serie: ")
 
-    gen1 = database[name][0]
-    gen2 = database[name][1]
-    gen3 = database[name][2]
+    try:
+        query = "MATCH (n:Database) WHERE n.nombre='"+name+"' RETURN n.genero1, n.genero2, n.genero3"
+        results = db.query(query, data_contents=True)
+        a = results.rows
+        for x in a:
+            historial.append(x[0])
+            historial.append(x[1])
+            historial.append(x[2])
+            
+
+        for x in historial:
+            print x
+
+    except Exception:
+        print("No se encuentra en la base de datos, si desea agregarlo elija la opcion 1")
 
     
-    historial.append(gen1)
-    historial.append(gen2)
-    historial.append(gen3)
-
-    #print name + historial[0] + historial[1] + historial[2]
 
 
 def menu():
@@ -120,7 +163,7 @@ def menu():
     
     
 menu()
-opcion = input("Ingrese la acción a realizar")
+opcion = input("Ingrese la acción a realizar: ")
 print ("**********************************")
 print ("**********************************")
 
