@@ -159,7 +159,6 @@ def watch():
 def popular_topics(name):
     nombre = name
     #diccionario que determinará cuales son los 5 generos más vistos
-    dic_gen = {}
     top_5 = []
     #por cada genero en la lista....
     word_counter = {}
@@ -174,7 +173,6 @@ def popular_topics(name):
     top_5 = popular_words[:5]
 
     #se ordenan los generos en orden alfabetico
-    #top_5.sort()
     lista = []
     print "Los generos que más miras son: "
     for x in top_5:
@@ -182,6 +180,8 @@ def popular_topics(name):
         print x
 
     print "Te recomendamos: "
+    print "-----------------"
+    print "-----------------"
     try:
         query = "match (n:Database{nombre:'"+nombre+"'})-[:contains*1..3]->(a:Database{genero1:'"+top_5[0]+"'}) return collect(distinct a.nombre)"
         #query = "MATCH (n:Database {genero1:'"+top_5[0]+"', genero2:'"+top_5[1]+"', genero3:'"+top_5[2]+"'}) RETURN n.nombre"
@@ -425,7 +425,7 @@ def show_genre():
                 print x
                 
     except Exception:
-        print("")
+        pass
 
     try:
         query = "MATCH (n:Database {genero2:'"+genre+"'}) RETURN n.nombre"
@@ -438,7 +438,7 @@ def show_genre():
                 print x
                 
     except Exception:
-        print("")
+        pass
 
     try:
         query = "MATCH (n:Database {genero3:'"+genre+"'}) RETURN n.nombre"
@@ -451,7 +451,7 @@ def show_genre():
                 print x
                 
     except Exception:
-        print("")
+        pass
 
 
 
