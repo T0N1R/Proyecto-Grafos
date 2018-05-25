@@ -145,20 +145,82 @@ def watch():
             historial.append(x[1])
             historial.append(x[2])
             
-
-        for x in historial:
-            print x
+        top_5 = []
+        popular_topics()
 
     except Exception:
         print("No se encuentra en la base de datos, si desea agregarlo elija la opcion 1")
 
-    
 
+#basado en el programa realizado or
+#https://stackoverflow.com/questions/3594514/how-to-find-most-common-elements-of-a-list
+def popular_topics():
+    #diccionario que determinará cuales son los 5 generos más vistos
+    dic_gen = {}
+
+    #por cada genero en la lista....
+    word_counter = {}
+    for word in historial:
+        if word in word_counter:
+            word_counter[word] += 1
+        else:
+            word_counter[word] = 1
+
+    popular_words = sorted(word_counter, key = word_counter.get, reverse = True)
+
+    top_5 = popular_words[:5]
+    print "Los generos que más miras son: "
+    for x in top_5:
+        print x
+
+
+#método para mostrar todas las series y peliculas de un genero
+def show_genre():
+    genre = raw_input("Ingrese el género: ")
+    try:
+        query = "MATCH (n:Database {genero1:'"+genre+"'}) RETURN n.nombre"
+        results = db.query(query, data_contents=True)
+        a = results.rows
+        b = []
+        for x in a:
+            if x not in b:
+                b.append(x)
+                print x
+                
+    except Exception:
+        print("")
+
+    try:
+        query = "MATCH (n:Database {genero2:'"+genre+"'}) RETURN n.nombre"
+        results = db.query(query, data_contents=True)
+        a = results.rows
+        b = []
+        for x in a:
+            if x not in b:
+                b.append(x)
+                print x
+                
+    except Exception:
+        print("")
+
+    try:
+        query = "MATCH (n:Database {genero3:'"+genre+"'}) RETURN n.nombre"
+        results = db.query(query, data_contents=True)
+        a = results.rows
+        b = []
+        for x in a:
+            if x not in b:
+                b.append(x)
+                print x
+                
+    except Exception:
+        print("")
 
 def menu():
     print("0. Agregar valores del documento Excel")
     print("1. Ingresar nueva Película/Serie a la base de datos")
     print("2. Ver Película o Serie")
+    print("3. Lista de Series y Películas por genero")
     print("9. Salir")
     
     
@@ -185,6 +247,13 @@ while(opcion != 9):
 
     elif(opcion == 2):
         watch()
+        print ("**********************************")
+        print ("**********************************")
+        menu()
+        opcion = input("Ingrese la accion a realizar: ")
+
+    elif(opcion == 3):
+        show_genre()
         print ("**********************************")
         print ("**********************************")
         menu()
