@@ -9,7 +9,7 @@ Miguel #17102
 """
 import random
 import xlrd
-file_location = "C:/Users/Antonio/Desktop/ProyectoFinal/prueba.xlsx"
+file_location = "C:/Users/Antonio/Desktop/ProyectoFinal/Database.xlsx"
 workbook = xlrd.open_workbook(file_location)
 sheet = workbook.sheet_by_index(0)
 from neo4jrestclient.client import GraphDatabase
@@ -157,6 +157,7 @@ def watch():
 #se utiliza el código mostrado en este link para mostrar los generos que se repiten más veces
 #https://stackoverflow.com/questions/3594514/how-to-find-most-common-elements-of-a-list
 def popular_topics(name):
+    nombre = name
     #diccionario que determinará cuales son los 5 generos más vistos
     dic_gen = {}
     top_5 = []
@@ -173,7 +174,7 @@ def popular_topics(name):
     top_5 = popular_words[:5]
 
     #se ordenan los generos en orden alfabetico
-    top_5.sort()
+    #top_5.sort()
     lista = []
     print "Los generos que más miras son: "
     for x in top_5:
@@ -182,22 +183,230 @@ def popular_topics(name):
 
     print "Te recomendamos: "
     try:
-        query = "MATCH (n:Database {genero1:'"+top_5[0]+"', genero2:'"+top_5[1]+"', genero3:'"+top_5[2]+"'}) RETURN n.nombre"
+        query = "match (n:Database{nombre:'"+nombre+"'})-[:contains*1..3]->(a:Database{genero1:'"+top_5[0]+"'}) return collect(distinct a.nombre)"
+        #query = "MATCH (n:Database {genero1:'"+top_5[0]+"', genero2:'"+top_5[1]+"', genero3:'"+top_5[2]+"'}) RETURN n.nombre"
         results = db.query(query, data_contents=True)
+        #print results
         a = results.rows
+        #print len(a[0][0])
         b = []
-        for x in a:
+        print a[0][0][0]
+        for x in a[0][0]:
             if x not in b:
                 b.append(x)
 
+        
+
         valor = random.sample(range(0, len(b)+1), 3)
+        
         print b[valor[0]]
         print b[valor[1]]
         print b[valor[2]]
 
     except Exception:
-        print ("")
+        pass
+
+
+    try:
+        query = "match (n:Database{nombre:'"+nombre+"'})-[:contains*1..3]->(a:Database{genero2:'"+top_5[0]+"'}) return collect(distinct a.nombre)"
+        #query = "MATCH (n:Database {genero1:'"+top_5[0]+"', genero2:'"+top_5[1]+"', genero3:'"+top_5[2]+"'}) RETURN n.nombre"
+        results = db.query(query, data_contents=True)
+        #print results
+        a = results.rows
+        #print len(a[0][0])
+        b = []
+        print a[0][0][0]
+        for x in a[0][0]:
+            if x not in b:
+                b.append(x)
+
         
+
+        valor = random.sample(range(0, len(b)+1), 3)
+        
+        print b[valor[0]]
+        print b[valor[1]]
+        print b[valor[2]]
+
+    except Exception:
+        pass
+
+
+    try:
+        query = "match (n:Database{nombre:'"+nombre+"'})-[:contains*1..3]->(a:Database{genero3:'"+top_5[0]+"'}) return collect(distinct a.nombre)"
+        #query = "MATCH (n:Database {genero1:'"+top_5[0]+"', genero2:'"+top_5[1]+"', genero3:'"+top_5[2]+"'}) RETURN n.nombre"
+        results = db.query(query, data_contents=True)
+        #print results
+        a = results.rows
+        #print len(a[0][0])
+        b = []
+        print a[0][0][0]
+        for x in a[0][0]:
+            if x not in b:
+                b.append(x)
+
+        
+
+        valor = random.sample(range(0, len(b)+1), 3)
+        
+        print b[valor[0]]
+        print b[valor[1]]
+        print b[valor[2]]
+
+    except Exception:
+        pass
+
+
+
+    try:
+        query = "match (n:Database{nombre:'"+nombre+"'})-[:contains*1..3]->(a:Database{genero1:'"+top_5[1]+"'}) return collect(distinct a.nombre)"
+        #query = "MATCH (n:Database {genero1:'"+top_5[0]+"', genero2:'"+top_5[1]+"', genero3:'"+top_5[2]+"'}) RETURN n.nombre"
+        results = db.query(query, data_contents=True)
+        #print results
+        a = results.rows
+        #print len(a[0][0])
+        b = []
+        print a[0][0][0]
+        for x in a[0][0]:
+            if x not in b:
+                b.append(x)
+
+        
+
+        valor = random.sample(range(0, len(b)+1), 3)
+        
+        print b[valor[0]]
+        print b[valor[1]]
+        print b[valor[2]]
+
+    except Exception:
+        pass
+
+
+    try:
+        query = "match (n:Database{nombre:'"+nombre+"'})-[:contains*1..3]->(a:Database{genero2:'"+top_5[1]+"'}) return collect(distinct a.nombre)"
+        #query = "MATCH (n:Database {genero1:'"+top_5[0]+"', genero2:'"+top_5[1]+"', genero3:'"+top_5[2]+"'}) RETURN n.nombre"
+        results = db.query(query, data_contents=True)
+        #print results
+        a = results.rows
+        #print len(a[0][0])
+        b = []
+        print a[0][0][0]
+        for x in a[0][0]:
+            if x not in b:
+                b.append(x)
+
+        
+
+        valor = random.sample(range(0, len(b)+1), 3)
+        
+        print b[valor[0]]
+        print b[valor[1]]
+        print b[valor[2]]
+
+    except Exception:
+        pass
+
+
+    try:
+        query = "match (n:Database{nombre:'"+nombre+"'})-[:contains*1..3]->(a:Database{genero3:'"+top_5[1]+"'}) return collect(distinct a.nombre)"
+        #query = "MATCH (n:Database {genero1:'"+top_5[0]+"', genero2:'"+top_5[1]+"', genero3:'"+top_5[2]+"'}) RETURN n.nombre"
+        results = db.query(query, data_contents=True)
+        #print results
+        a = results.rows
+        #print len(a[0][0])
+        b = []
+        print a[0][0][0]
+        for x in a[0][0]:
+            if x not in b:
+                b.append(x)
+
+        
+
+        valor = random.sample(range(0, len(b)+1), 3)
+        
+        print b[valor[0]]
+        print b[valor[1]]
+        print b[valor[2]]
+
+    except Exception:
+        pass
+
+
+    try:
+        query = "match (n:Database{nombre:'"+nombre+"'})-[:contains*1..3]->(a:Database{genero1:'"+top_5[2]+"'}) return collect(distinct a.nombre)"
+        #query = "MATCH (n:Database {genero1:'"+top_5[0]+"', genero2:'"+top_5[1]+"', genero3:'"+top_5[2]+"'}) RETURN n.nombre"
+        results = db.query(query, data_contents=True)
+        #print results
+        a = results.rows
+        #print len(a[0][0])
+        b = []
+        print a[0][0][0]
+        for x in a[0][0]:
+            if x not in b:
+                b.append(x)
+
+        
+
+        valor = random.sample(range(0, len(b)+1), 3)
+        
+        print b[valor[0]]
+        print b[valor[1]]
+        print b[valor[2]]
+
+    except Exception:
+        pass
+
+
+    try:
+        query = "match (n:Database{nombre:'"+nombre+"'})-[:contains*1..3]->(a:Database{genero2:'"+top_5[2]+"'}) return collect(distinct a.nombre)"
+        #query = "MATCH (n:Database {genero1:'"+top_5[0]+"', genero2:'"+top_5[1]+"', genero3:'"+top_5[2]+"'}) RETURN n.nombre"
+        results = db.query(query, data_contents=True)
+        #print results
+        a = results.rows
+        #print len(a[0][0])
+        b = []
+        print a[0][0][0]
+        for x in a[0][0]:
+            if x not in b:
+                b.append(x)
+
+        
+
+        valor = random.sample(range(0, len(b)+1), 3)
+        
+        print b[valor[0]]
+        print b[valor[1]]
+        print b[valor[2]]
+
+    except Exception:
+        pass
+
+
+    try:
+        query = "match (n:Database{nombre:'"+nombre+"'})-[:contains*1..3]->(a:Database{genero3:'"+top_5[2]+"'}) return collect(distinct a.nombre)"
+        #query = "MATCH (n:Database {genero1:'"+top_5[0]+"', genero2:'"+top_5[1]+"', genero3:'"+top_5[2]+"'}) RETURN n.nombre"
+        results = db.query(query, data_contents=True)
+        #print results
+        a = results.rows
+        #print len(a[0][0])
+        b = []
+        print a[0][0][0]
+        for x in a[0][0]:
+            if x not in b:
+                b.append(x)
+
+        
+
+        valor = random.sample(range(0, len(b)+1), 3)
+        
+        print b[valor[0]]
+        print b[valor[1]]
+        print b[valor[2]]
+
+    except Exception:
+        pass
+   
     #YourList.OrderBy(x => rnd.Next()).Take(5)
     #recomendation(name, top_5[0], top_5[1], top_5[2], top_5[3])
 
