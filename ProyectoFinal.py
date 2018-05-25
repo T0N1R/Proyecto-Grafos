@@ -7,6 +7,7 @@ Antonio Reyes #17273
 Esteban Cabrera #17781
 Miguel #17102
 """
+import random
 import xlrd
 file_location = "C:/Users/Antonio/Desktop/ProyectoFinal/prueba.xlsx"
 workbook = xlrd.open_workbook(file_location)
@@ -145,19 +146,20 @@ def watch():
             historial.append(x[1])
             historial.append(x[2])
             
-        top_5 = []
-        popular_topics()
+        
+        
 
     except Exception:
         print("No se encuentra en la base de datos, si desea agregarlo elija la opcion 1")
 
+    popular_topics(name)
 
-#basado en el programa realizado or
+#se utiliza el código mostrado en este link para mostrar los generos que se repiten más veces
 #https://stackoverflow.com/questions/3594514/how-to-find-most-common-elements-of-a-list
-def popular_topics():
+def popular_topics(name):
     #diccionario que determinará cuales son los 5 generos más vistos
     dic_gen = {}
-
+    top_5 = []
     #por cada genero en la lista....
     word_counter = {}
     for word in historial:
@@ -169,9 +171,35 @@ def popular_topics():
     popular_words = sorted(word_counter, key = word_counter.get, reverse = True)
 
     top_5 = popular_words[:5]
+
+    #se ordenan los generos en orden alfabetico
+    top_5.sort()
+    lista = []
     print "Los generos que más miras son: "
     for x in top_5:
+        lista.append(x)
         print x
+
+    print "Te recomendamos: "
+    try:
+        query = "MATCH (n:Database {genero1:'"+top_5[0]+"', genero2:'"+top_5[1]+"', genero3:'"+top_5[2]+"'}) RETURN n.nombre"
+        results = db.query(query, data_contents=True)
+        a = results.rows
+        b = []
+        for x in a:
+            if x not in b:
+                b.append(x)
+
+        valor = random.sample(range(0, len(b)+1), 3)
+        print b[valor[0]]
+        print b[valor[1]]
+        print b[valor[2]]
+
+    except Exception:
+        print ("")
+        
+    #YourList.OrderBy(x => rnd.Next()).Take(5)
+    #recomendation(name, top_5[0], top_5[1], top_5[2], top_5[3])
 
 
 #método para mostrar todas las series y peliculas de un genero
@@ -215,6 +243,13 @@ def show_genre():
                 
     except Exception:
         print("")
+
+
+
+#******************************************************************************************************
+#*******************************************************************************************************
+
+                
 
 def menu():
     print("0. Agregar valores del documento Excel")
