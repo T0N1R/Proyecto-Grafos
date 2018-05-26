@@ -10,9 +10,11 @@ Miguel Valle #17102
 
 
 ## Proyecto 2
-Algoritmo de Recomendación de Películas y Series
+## Algoritmo de Recomendación de Películas y Series
 
-Documentación
+### Documentación
+
+<img width="960" alt="cover" src="https://user-images.githubusercontent.com/35511339/40570629-e5e631aa-6049-11e8-942e-de2bfcec2ccf.PNG">
 
 El objetivo de este proyecto es el diseñar un algoritmo que permita realizar recomendación de películas y series de televisión. El problema que queremos resolver con este algoritmo es que muchos algoritmos se encargan solo de mostrar contenido que está seguro de que el usuario verá, no se trata que el usuario experimente y conozca el resto de contenido que provee el servicio de entretenimiento. 
 
