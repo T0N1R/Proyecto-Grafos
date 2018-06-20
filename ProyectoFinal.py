@@ -9,7 +9,7 @@ Miguel #17102
 """
 import random
 import xlrd
-file_location = "C:/Users/Antonio/Desktop/ProyectoFinal/Database.xlsx"
+file_location = "C:/Users/Antonio/Desktop/Recommendation-System-python-neo4J-master/Database.xlsx"
 workbook = xlrd.open_workbook(file_location)
 sheet = workbook.sheet_by_index(0)
 from neo4jrestclient.client import GraphDatabase
@@ -87,10 +87,10 @@ def add_Excel():
 
 def add_database():
     listaOrden = []
-    name = raw_input("Ingresar nombre de la Película o Serie: ")
-    gen1 = raw_input("Ingrese genero1: ")
-    gen2 = raw_input("Ingrese genero2: ")
-    gen3 = raw_input("Ingrese genero3: ")
+    name = raw_input("Insert name: ")
+    gen1 = raw_input("Insert genre1 ")
+    gen2 = raw_input("Insert genre2: ")
+    gen3 = raw_input("Insert genre3: ")
 
     listaOrden.append(gen1)
     listaOrden.append(gen2)
@@ -135,7 +135,7 @@ def add_database():
     database[name] = [gen1,gen2,gen3]
 
 def watch():
-    name = raw_input("Ingrese el nombre de la Película o Serie: ")
+    name = raw_input("Insert name: ")
 
     try:
         query = "MATCH (n:Database) WHERE n.nombre='"+name+"' RETURN n.genero1, n.genero2, n.genero3"
@@ -145,20 +145,20 @@ def watch():
             historial.append(x[0])
             historial.append(x[1])
             historial.append(x[2])
-            
-        
-        
+
+
+
 
     except Exception:
-        print("No se encuentra en la base de datos, si desea agregarlo elija la opcion 1")
+        print("The movie or TV show you were looking for is not in the database, you can add it by going to option 1")
 
     popular_topics(name)
 
-#se utiliza el código mostrado en este link para mostrar los generos que se repiten más veces
+#se utiliza el cÃ³digo mostrado en este link para mostrar los generos que se repiten mÃ¡s veces
 #https://stackoverflow.com/questions/3594514/how-to-find-most-common-elements-of-a-list
 def popular_topics(name):
     nombre = name
-    #diccionario que determinará cuales son los 5 generos más vistos
+    #diccionario que determinarÃ¡ cuales son los 5 generos mÃ¡s vistos
     top_5 = []
     #por cada genero en la lista....
     word_counter = {}
@@ -174,12 +174,12 @@ def popular_topics(name):
 
     #se ordenan los generos en orden alfabetico
     lista = []
-    print "Los generos que más miras son: "
+    print "Most watched genres: "
     for x in top_5:
         lista.append(x)
         print x
 
-    print "Te recomendamos: "
+    print "We recommend: "
     print "-----------------"
     print "-----------------"
     try:
@@ -195,10 +195,10 @@ def popular_topics(name):
             if x not in b:
                 b.append(x)
 
-        
+
 
         valor = random.sample(range(0, len(b)+1), 3)
-        
+
         print b[valor[0]]
         print b[valor[1]]
         print b[valor[2]]
@@ -220,10 +220,10 @@ def popular_topics(name):
             if x not in b:
                 b.append(x)
 
-        
+
 
         valor = random.sample(range(0, len(b)+1), 3)
-        
+
         print b[valor[0]]
         print b[valor[1]]
         print b[valor[2]]
@@ -245,10 +245,10 @@ def popular_topics(name):
             if x not in b:
                 b.append(x)
 
-        
+
 
         valor = random.sample(range(0, len(b)+1), 3)
-        
+
         print b[valor[0]]
         print b[valor[1]]
         print b[valor[2]]
@@ -271,10 +271,10 @@ def popular_topics(name):
             if x not in b:
                 b.append(x)
 
-        
+
 
         valor = random.sample(range(0, len(b)+1), 3)
-        
+
         print b[valor[0]]
         print b[valor[1]]
         print b[valor[2]]
@@ -296,10 +296,10 @@ def popular_topics(name):
             if x not in b:
                 b.append(x)
 
-        
+
 
         valor = random.sample(range(0, len(b)+1), 3)
-        
+
         print b[valor[0]]
         print b[valor[1]]
         print b[valor[2]]
@@ -321,10 +321,10 @@ def popular_topics(name):
             if x not in b:
                 b.append(x)
 
-        
+
 
         valor = random.sample(range(0, len(b)+1), 3)
-        
+
         print b[valor[0]]
         print b[valor[1]]
         print b[valor[2]]
@@ -346,10 +346,10 @@ def popular_topics(name):
             if x not in b:
                 b.append(x)
 
-        
+
 
         valor = random.sample(range(0, len(b)+1), 3)
-        
+
         print b[valor[0]]
         print b[valor[1]]
         print b[valor[2]]
@@ -371,10 +371,10 @@ def popular_topics(name):
             if x not in b:
                 b.append(x)
 
-        
+
 
         valor = random.sample(range(0, len(b)+1), 3)
-        
+
         print b[valor[0]]
         print b[valor[1]]
         print b[valor[2]]
@@ -396,24 +396,24 @@ def popular_topics(name):
             if x not in b:
                 b.append(x)
 
-        
+
 
         valor = random.sample(range(0, len(b)+1), 3)
-        
+
         print b[valor[0]]
         print b[valor[1]]
         print b[valor[2]]
 
     except Exception:
         pass
-   
+
     #YourList.OrderBy(x => rnd.Next()).Take(5)
     #recomendation(name, top_5[0], top_5[1], top_5[2], top_5[3])
 
 
-#método para mostrar todas las series y peliculas de un genero
+#mÃ©todo para mostrar todas las series y peliculas de un genero
 def show_genre():
-    genre = raw_input("Ingrese el género: ")
+    genre = raw_input("Insert genre: ")
     try:
         query = "MATCH (n:Database {genero1:'"+genre+"'}) RETURN n.nombre"
         results = db.query(query, data_contents=True)
@@ -423,7 +423,7 @@ def show_genre():
             if x not in b:
                 b.append(x)
                 print x
-                
+
     except Exception:
         pass
 
@@ -436,7 +436,7 @@ def show_genre():
             if x not in b:
                 b.append(x)
                 print x
-                
+
     except Exception:
         pass
 
@@ -449,7 +449,7 @@ def show_genre():
             if x not in b:
                 b.append(x)
                 print x
-                
+
     except Exception:
         pass
 
@@ -458,18 +458,18 @@ def show_genre():
 #******************************************************************************************************
 #*******************************************************************************************************
 
-                
+
 
 def menu():
-    print("0. Agregar valores del documento Excel")
-    print("1. Ingresar nueva Película/Serie a la base de datos")
-    print("2. Ver Película o Serie")
-    print("3. Lista de Series y Películas por genero")
-    print("9. Salir")
-    
-    
+    print("0. Add movies and TV shows to from Excel to Database")
+    print("1. Add move or TV show to Database")
+    print("2. Watch movie or TV Show")
+    print("3. List of movies and TV shows by genre")
+    print("9. Exit")
+
+
 menu()
-opcion = input("Ingrese la acción a realizar: ")
+opcion = input("Option: ")
 print ("**********************************")
 print ("**********************************")
 
@@ -478,37 +478,36 @@ while(opcion != 9):
         add_Excel()
         print ("**********************************")
         print ("**********************************")
-        print ("Base de datos agregada")
+        print ("Values added to Database")
         menu()
-        opcion = input("Ingrese la accion a realizar: ")
-        
+        opcion = input("Option: ")
+
     elif(opcion == 1):
         add_database()
         print ("**********************************")
         print ("**********************************")
         menu()
-        opcion = input("Ingrese la accion a realizar: ")
+        opcion = input("Option: ")
 
     elif(opcion == 2):
         watch()
         print ("**********************************")
         print ("**********************************")
         menu()
-        opcion = input("Ingrese la accion a realizar: ")
+        opcion = input("Option: ")
 
     elif(opcion == 3):
         show_genre()
         print ("**********************************")
         print ("**********************************")
         menu()
-        opcion = input("Ingrese la accion a realizar: ")
+        opcion = input("Option: ")
 
     else:
-        print("La opción ingresada no es valida")
+        print("This option is not valid")
         print ("**********************************")
         print ("**********************************")
         menu()
-        opcion = input("Ingrese la accion a realizar: ")
+        opcion = input("Option: ")
 
-print ("Gracias por usar el programa")
-
+print ("Thanks for using the program")
