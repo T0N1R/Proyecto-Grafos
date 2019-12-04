@@ -4,9 +4,9 @@ Universidad del Valle de Guatemala
 Facultad de Ingeniería                                                                                            
 Algoritmos y Estructura de Datos                                                                                    
 25/5/2018
-Antonio Reyes #17273
-Esteban Cabrera #17781
-Miguel Valle #17102
+##### Antonio Reyes #17273
+##### Esteban Cabrera #17781
+##### Miguel Valle #17102
 
 
 ## Proyecto 2
